@@ -1,0 +1,8 @@
+{
+  "name": "streaming-enabled-tests",
+  "private": true,
+  "description": "Harnesses for the Streaming Enabled host",
+  "devDependencies": {
+    "wasmoon": "^1.16.0"
+  }
+}

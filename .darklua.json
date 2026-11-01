@@ -1,0 +1,9 @@
+﻿{
+  "generator": "readable",
+  "rules": [
+    { "rule": "remove_types" }
+  ],
+  "bundle": {
+    "require_mode": "path"
+  }
+}

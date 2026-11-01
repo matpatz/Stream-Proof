@@ -1,0 +1,9 @@
+.history
+
+build/
+dist/
+
+third_party/
+
+tests/node_modules/
+tests/package-lock.json
