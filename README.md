@@ -1,6 +1,6 @@
-# Streaming Enabled
+# Stream Proof
 
-Streaming Enabled is a Windows companion app and Luau client script. The client sends player
+Stream Proof is a Windows companion app and Luau client script. The client sends player
 positions and selected player information to the app over a WebSocket connection on your own
 computer. The app draws that information in a separate, transparent overlay; it does not use
 Roblox's `Drawing` library.
@@ -17,9 +17,6 @@ When the repository is available, open PowerShell and clone it:
 git clone https://github.com/matpatz/Stream-Proof.git
 Set-Location .\Stream-Proof
 ```
-
-If GitHub reports that the repository cannot be found, it has not been published or made public
-yet. Wait until it is available, or use the source folder you were given.
 
 ## Build the app and client script
 
@@ -98,7 +95,6 @@ executor and app must run on the same computer. No router or port-forwarding set
 
 The client configuration in `luau\config.lua` selects:
 
-- Other players, not your local character.
 - Players within 5,000 studs whose characters are on screen.
 - A colored box, name, health bar, and distance.
 - Team as an additional information line when available.
