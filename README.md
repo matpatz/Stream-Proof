@@ -1,5 +1,7 @@
 # Stream Proof
 
+Yes, the entire project is vibecoded. I know absolutely no C++
+
 Stream Proof is a Windows companion app and Luau client script. The client sends player
 positions and selected player information to the app over a WebSocket connection on your own
 computer. The app draws that information in a separate, transparent overlay; it does not use
@@ -140,10 +142,10 @@ The app and client must use the same port. For example, to use `34892`:
 
 ### Change what is displayed
 
-Edit `luau\config.lua` to change the streamed fields, distance limit, whether your own character is
-included, and whether off-screen characters are filtered. After editing, regenerate
-`dist\streaming-enabled.lua` with the Darklua command above and run that new bundle. Editing the
-source config alone does not update an existing bundle.
+Edit `luau\config.lua` to change the streamed fields, distance limit, whether your own character
+and NPCs with a `Humanoid` are included, and whether off-screen characters are filtered. After
+editing, regenerate `dist\streaming-enabled.lua` with the Darklua command above and run that new
+bundle. Editing the source config alone does not update an existing bundle.
 
 To see the app's command-line options, run:
 

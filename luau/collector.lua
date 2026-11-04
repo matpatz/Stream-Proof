@@ -45,7 +45,10 @@ function collector.screen_size()
 end
 
 local function humanoid_of(player)
-    local character = player.Character
+    local character = player
+    if player:IsA("Player") then
+        character = player.Character
+    end
     return character and character:FindFirstChildOfClass("Humanoid")
 end
 
@@ -82,12 +85,6 @@ local READERS = {
         local team = player.Team
         return team and team.Name
     end,
-    Ping = function(player)
-        local ping = attempt(function()
-            return player:GetNetworkPing()
-        end)
-        return ping and math.floor(ping * 1000 + 0.5)
-    end,
     UserId = function(player)
         return player.UserId
     end,
@@ -102,7 +99,8 @@ local function read_field(player, field, character)
 end
 
 local function describe(player, camera, camera_position, config)
-    local character = player.Character
+    local is_player = player:IsA("Player")
+    local character = is_player and player.Character or player
     local root = character and character:FindFirstChild("HumanoidRootPart")
     if not root then
         return nil
@@ -114,7 +112,7 @@ local function describe(player, camera, camera_position, config)
     end
 
     local item = {
-        id = tostring(player.UserId),
+        id = is_player and tostring(player.UserId) or "bot:" .. character:GetFullName(),
         distance = math.floor(distance + 0.5),
     }
 
@@ -172,12 +170,28 @@ function collector.snapshot(config)
     local camera_position = camera.CFrame.Position
     local local_player = Players.LocalPlayer
     local items = {}
+    local player_characters = {}
 
     for _, player in ipairs(Players:GetPlayers()) do
+        if player.Character then
+            player_characters[player.Character] = true
+        end
         if config.include_local_player or player ~= local_player then
             local item = describe(player, camera, camera_position, config)
             if item then
                 items[#items + 1] = item
+            end
+        end
+    end
+
+    if config.include_bots then
+        for _, humanoid in workspace:QueryDescendants("Model > Humanoid") do
+            local character = humanoid.Parent
+            if character and character:IsA("Model") and not player_characters[character] then
+                local item = describe(character, camera, camera_position, config)
+                if item then
+                    items[#items + 1] = item
+                end
             end
         end
     end

@@ -19,10 +19,8 @@ local function identify_executor()
 end
 
 local function publish_stopper(stop)
-    local ok, environment = pcall(getgenv)
-    if ok and type(environment) == "table" then
-        environment.StreamingEnabledStop = stop
-    end
+    local env = getgenv()
+    env.StreamingEnabledStop = stop
 end
 
 local function run()
@@ -59,20 +57,27 @@ local function run()
             log("collection failed:", items)
         else
             local encoded = HttpService:JSONEncode(items)
-            if encoded ~= last_items or time() - last_sent >= KEEPALIVE then
-                local viewport_width, viewport_height = collector.screen_size()
-                local message = SNAPSHOT:format(sequence, viewport_width, viewport_height, encoded)
-
-                local sent, send_error = pcall(websocket.send, socket, message)
-                if not sent then
-                    log("send failed:", send_error)
-                    break
-                end
-
-                last_items = encoded
-                last_sent = time()
-                sequence = sequence + 1
+            if encoded == last_items then
+                return
             end
+            if time() - last_sent >= KEEPALIVE then
+                
+            else
+                return
+            end
+
+            local viewport_width, viewport_height = collector.screen_size()
+            local message = SNAPSHOT:format(sequence, viewport_width, viewport_height, encoded)
+
+            local sent, send_error = pcall(websocket.send, socket, message)
+            if not sent then
+                log("send failed:", send_error)
+                break
+            end
+
+            last_items = encoded
+            last_sent = time()
+            sequence = sequence + 1
         end
 
         local elapsed = time() - started

@@ -1,3 +1,8 @@
+--[[
+my agent obv wrote this, but im guessing we use it over HttpService because the packaged data is sent to C++ which doesnt have it
+so thats why this exists
+]]
+
 -- Minimal JSON encoder: enough for the snapshot messages, no dependencies.
 local json = {}
 
