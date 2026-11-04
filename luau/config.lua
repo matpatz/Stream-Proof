@@ -27,7 +27,7 @@ return {
     -- Stream your own character too.
     include_local_player = false,
 
-    -- Include NPC models with a Humanoid.
+    -- Include NPC models with a living Humanoid.
     include_bots = true,
 
     -- Only stream players whose character is on screen.

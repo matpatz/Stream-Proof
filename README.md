@@ -143,7 +143,7 @@ The app and client must use the same port. For example, to use `34892`:
 ### Change what is displayed
 
 Edit `luau\config.lua` to change the streamed fields, distance limit, whether your own character
-and NPCs with a `Humanoid` are included, and whether off-screen characters are filtered. After
+and NPCs with a living `Humanoid` are included, and whether off-screen characters are filtered. After
 editing, regenerate `dist\streaming-enabled.lua` with the Darklua command above and run that new
 bundle. Editing the source config alone does not update an existing bundle.
 

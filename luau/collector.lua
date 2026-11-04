@@ -101,6 +101,11 @@ end
 local function describe(player, camera, camera_position, config)
     local is_player = player:IsA("Player")
     local character = is_player and player.Character or player
+    local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+    if not humanoid or humanoid.Health <= 0 then
+        return nil
+    end
+
     local root = character and character:FindFirstChild("HumanoidRootPart")
     if not root then
         return nil
